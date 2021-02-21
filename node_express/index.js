@@ -3,64 +3,17 @@ const http=require('http');
 const hostname='localhost';
 const port=3000;
 const morgan=require('morgan');
-const bodyParser=require('body-parser');
-
+//const bodyParser=require('body-parser');
+const dishRouter=require('./routes/dishRouter');
+const promoRouter=require('./routes/promoRouter');
+const leaderRouter=require('./routes/leaderRouter');
 const app=express();
 app.use(morgan('dev')); //dev=development and morgan is used to print the additional info. to screen
-app.use(bodyParser.json());
-
-app.all('/dishes',(req,res,next)=>
-{
-  res.statusCode=200;
-  res.setHeader('Content-Type','text/plain');
-  next();
-});
-
-app.get('/dishes',(req,res,next)=>
-{
-res.end('will send all the dishes to u');
-});
-
-app.post('/dishes',(req,res,next)=>
-{
-  res.end('will add the dish: '+req.body.name+
-  'with details: '+req.body.description);
-});
-
-app.put('/dishes',(req,res,next)=>
-{
-  res.statusCode=403; //for not support
-  res.end("put operation not supported on dishes");
-});
-
-app.delete('/dishes',(req,res,next)=>
-{
-res.end('will deleting all the dishes!!');
-});
-
-app.get('/dishes/:dishId',(req,res,next)=>
-{
-res.end('will send details of the dish: '
-        +req.params.dishId +'to you!' );
-});
-
-app.post('/dishes/:dishId',(req,res,next)=>
-{
-  res.statusCode=403; //for not support
-  res.end("post operation not supported on dishes/"+req.params.dishId);
-});
-
-app.put('/dishes/:dishId',(req,res,next)=>
-{
-  res.write("updating the dish: "+req.params.dishId+'\n');
-  res.end("will update the dish: "+req.body.name+
- 'with details: '+req.body.description);
-});
-
-app.delete('/dishes/:dishId',(req,res,next)=>
-{
-res.end('deleting dish: '+req.params.dishId);
-});
+//app.use(bodyParser.json());
+//we will now mounted the dishRouter
+app.use('/dishes',dishRouter); //any req come with /dishes is route to dishRouter
+app.use('/promotions',promoRouter);
+app.use('/leaders',leaderRouter);
 
 app.use(express.static(__dirname+'/public'));
 
