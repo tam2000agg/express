@@ -7,6 +7,7 @@ const bodyParser=require('body-parser');
 
 
 //we have chained all together
+
 dishRouter.route('/')
 .all((req,res,next)=>
 {
@@ -21,7 +22,9 @@ res.end('will send all the dishes to u');
 .post((req,res,next)=>
 {
   res.end('will add the dish: '+req.body.name+
-  'with details: '+req.body.description);
+  ' with details: '+req.body.description);
+  
+  
 })
 .put((req,res,next)=>
 {
@@ -32,7 +35,6 @@ res.end('will send all the dishes to u');
 {
 res.end('will deleting all the dishes!!');
 });
-
 
 dishRouter.route('/:dishId')
 .get((req,res,next)=>
