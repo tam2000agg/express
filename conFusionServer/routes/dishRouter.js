@@ -1,12 +1,11 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 
- const dishRouter=express.Router();
- dishRouter.use(bodyParser.json());
+const dishRouter=express.Router();
+dishRouter.use(bodyParser.json());
  
-
-
 //we have chained all together
+
 dishRouter.route('/')
 .all((req,res,next)=>
 {
